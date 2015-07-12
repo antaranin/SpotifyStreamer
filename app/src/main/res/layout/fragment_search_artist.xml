@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".SearchSongActivityFragment">
+
+    <FrameLayout
+        android:id="@+id/top_edge_saf"
+        style="@style/edge_bar_style"
+        android:layout_alignParentTop="true"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/artist_name_et"
+            android:textSize="24sp"
+            android:paddingBottom="@dimen/search_box_padding_top_bottom"
+            android:paddingTop="@dimen/search_box_padding_top_bottom"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:hint="@string/artist_search_hint"
+            android:singleLine="true"
+            />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/no_artists_found_tv"
+        style="@style/no_data_found_tv_style"
+        android:text="@string/enter_artist_name"
+        android:visibility="visible"
+        />
+
+    <ListView
+        style="@style/list_view_style"
+        android:id="@+id/artist_lv_saf"
+        android:layout_below="@+id/top_edge_saf"
+        android:layout_above="@+id/bottom_edge_saf"
+        android:visibility="invisible"/>
+
+    <View
+        android:id="@+id/bottom_edge_saf"
+        style="@style/edge_bar_style"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>

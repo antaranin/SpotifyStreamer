@@ -1,0 +1,69 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="list_view_style">
+        <item name="android:dividerHeight">8dp</item>
+        <item name="android:divider">@android:color/transparent</item>
+        <item name="android:layout_marginRight">@dimen/list_view_side_margin</item>
+        <item name="android:layout_marginLeft">@dimen/list_view_side_margin</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="list_view_pic_style">
+        <item name="android:layout_width">@dimen/list_view_pic_width</item>
+        <item name="android:layout_height">@dimen/list_view_pic_height</item>
+        <item name="android:layout_marginTop">@dimen/list_view_pic_top_bottom_margin</item>
+        <item name="android:layout_marginBottom">@dimen/list_view_pic_top_bottom_margin</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_alignParentStart">true</item>
+        <item name="android:contentDescription">@string/image_description</item>
+    </style>
+
+    <style name="list_view_tv_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="list_view_main_text_view_style" parent="list_view_tv_style">
+        <item name="android:layout_marginLeft">@dimen/left_margin_tv_list_view</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="no_data_found_tv_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginTop">@dimen/no_data_found_margin_top</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/shadowed_rectangle</item>
+        <item name="android:paddingTop">@dimen/no_data_padding_top_bottom</item>
+        <item name="android:paddingBottom">@dimen/no_data_padding_top_bottom</item>
+        <item name="android:paddingRight">@dimen/no_data_side_padding</item>
+        <item name="android:paddingLeft">@dimen/no_data_side_padding</item>
+    </style>
+
+    <style name="list_item_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/shadowed_rectangle</item>
+    </style>
+
+    <style name="edge_bar_style">
+        <item name="android:background">@drawable/shadowed_rectangle</item>
+        <item name="android:layout_height">@dimen/edge_bar_height</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+</resources>

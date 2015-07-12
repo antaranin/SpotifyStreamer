@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="light_gray">#d0d0d0</color>
+    <color name="black_gray">#313131</color>
+
+    <color name="udacity_orange">#F08C35</color>
+    <color name="application_orange">#e18858</color>
+    <color name="shadow_dark_blue">#687989</color>
+    <color name="application_gray">#919DA9</color>
+</resources>

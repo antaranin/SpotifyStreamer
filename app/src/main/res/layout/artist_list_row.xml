@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/list_item_style">
+
+    <ImageView
+        android:id="@+id/artist_picture_iv"
+        style="@style/list_view_pic_style"
+        />
+
+    <TextView
+        android:id="@+id/artist_name_tv"
+        style="@style/list_view_main_text_view_style"
+        android:layout_toEndOf="@+id/artist_picture_iv"
+        android:textSize="@dimen/main_tv_list_view_font_size"/>
+</RelativeLayout>

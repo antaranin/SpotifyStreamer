@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SpotifyStreamer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="artist_search_hint">Search for artist</string>
+    <string name="image_description">Image</string>
+    <string name="spotify_streamer">Spotify Streamer</string>
+    <string name="no_artist_found">No artists have been found.</string>
+    <string name="enter_artist_name">To find artist enter their name.</string>
+    <string name="no_tracks_found">No tracks have been found, please select a different artist.</string>
+    <string name="server_error">Error occured while connecting to Spotify.</string>
+    <string name="top_tracks">Top 10 tracks</string>
+</resources>

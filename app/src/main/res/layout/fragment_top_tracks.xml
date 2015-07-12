@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/top_edge_ttf"
+            style="@style/edge_bar_style"
+            android:textSize="@dimen/search_box_font_size"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:text="@string/top_tracks"
+            android:layout_alignParentTop="true"
+            />
+
+        <TextView
+            android:id="@+id/no_tracks_found_tv"
+            style="@style/no_data_found_tv_style"
+            android:text="@string/no_tracks_found"
+            android:visibility="visible"
+            />
+
+        <ListView
+            android:layout_below="@+id/top_edge_ttf"
+            android:layout_above="@+id/bottom_edge_ttf"
+            style="@style/list_view_style"
+            android:id="@+id/top_tracks_lv_ttf"
+            android:visibility="invisible"
+            />
+        <View
+            android:id="@+id/bottom_edge_ttf"
+            style="@style/edge_bar_style"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+</FrameLayout>

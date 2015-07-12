@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout style="@style/list_item_style"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <ImageView
+        android:id="@+id/track_picture_iv"
+        style="@style/list_view_pic_style"
+        />
+
+    <TextView
+        android:id="@+id/track_name_tv"
+        style="@style/list_view_main_text_view_style"
+        android:layout_toEndOf="@+id/track_picture_iv"
+        android:layout_marginBottom="20dp"
+        android:text="New Text"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/track_album_tv"
+        style="@style/list_view_tv_style"
+        android:layout_alignLeft="@+id/track_name_tv"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/track_name_tv"
+        android:textSize="16sp"
+        />
+</RelativeLayout>

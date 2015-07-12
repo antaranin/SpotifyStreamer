@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/note_background"
+              android:orientation="horizontal">
+
+    <fragment
+        android:id="@+id/search_artist_fragment_ssa"
+        android:name="nanodegree.spotifystreamer.gui_layer.fragments.SearchArtistFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <FrameLayout
+        android:id="@+id/top_tracks_fragment_container_ssa"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:visibility="gone"
+        >
+
+        <fragment
+            android:id="@+id/top_tracks_fragment_ssa"
+            android:name="nanodegree.spotifystreamer.gui_layer.fragments.TopTracksFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </FrameLayout>
+
+</LinearLayout>
