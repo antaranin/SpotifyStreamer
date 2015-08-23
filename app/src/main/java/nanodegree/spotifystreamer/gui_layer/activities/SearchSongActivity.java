@@ -19,22 +19,27 @@ import nanodegree.spotifystreamer.R;
 import nanodegree.spotifystreamer.data_processing_layer.AppTools;
 import nanodegree.spotifystreamer.gui_layer.fragments.SearchArtistFragment;
 import nanodegree.spotifystreamer.gui_layer.fragments.TopTracksFragment;
+import nanodegree.spotifystreamer.gui_layer.fragments.TrackPlayerFragment;
 import nanodegree.spotifystreamer.model_layer.Artist;
+import nanodegree.spotifystreamer.model_layer.Track;
 
 
 public class SearchSongActivity extends Activity
-        implements SearchArtistFragment.OnArtistFragmentInteractionListener
+        implements SearchArtistFragment.OnArtistFragmentInteractionListener, TrackPlayerFragment.OnTrackRequestedListener,
+        TopTracksFragment.OnTrackFragmentInteractionListener
 {
-    private static final String artistFragmentKey = "artistFragment";
-    private static final String tracksFragmentKey = "tracksFragment";
+    private static final String ARTIST_FRAGMENT_KEY = "artistFragment";
+    private static final String TRACKS_FRAGMENT_KEY = "tracksFragment";
+    private static final String PLAYER_FRAGMENT_KEY = "playerFragment";
+
     @Optional
     @InjectView(R.id.top_tracks_fragment_container_ssa)
     FrameLayout topTracksFragmentContainer;
-    private SearchArtistFragment artistFragment;
-    private TopTracksFragment tracksFragment;
-
     @Icicle
     boolean artistPicked;
+    private SearchArtistFragment artistFragment;
+    private TopTracksFragment tracksFragment;
+    private TrackPlayerFragment playerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -57,6 +62,7 @@ public class SearchSongActivity extends Activity
         }
         ButterKnife.inject(this);
 
+        log("Restoring instance => " + (savedInstanceState != null));
         if (savedInstanceState == null)
             createNewInstance();
         else
@@ -64,8 +70,23 @@ public class SearchSongActivity extends Activity
 
     }
 
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        log("On resume");
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        log("On pause");
+    }
+
     private void createNewInstance()
     {
+        log("Creating new instance");
         artistFragment = (SearchArtistFragment) getFragmentManager().findFragmentById(R.id.search_artist_fragment_ssa);
         if (artistFragment == null)
         {
@@ -83,20 +104,37 @@ public class SearchSongActivity extends Activity
         }
         artistFragment.setListener(this);
         artistFragment.setRetainInstance(true);
+        playerFragment = new TrackPlayerFragment();
+        playerFragment.setOnTrackRequestedListener(this);
+        tracksFragment.setListener(this);
+        tracksFragment.setRetainInstance(true);
+
     }
 
     private void restoreInstance(Bundle savedInstanceState)
     {
         Icepick.restoreInstanceState(this, savedInstanceState);
-        artistFragment = (SearchArtistFragment) getFragmentManager().getFragment(savedInstanceState, artistFragmentKey);
+        artistFragment = (SearchArtistFragment) getFragmentManager().getFragment(savedInstanceState, ARTIST_FRAGMENT_KEY);
         artistFragment.setListener(this);
-        Fragment temp = getFragmentManager().getFragment(savedInstanceState, tracksFragmentKey);
+        Fragment temp = getFragmentManager().getFragment(savedInstanceState, TRACKS_FRAGMENT_KEY);
+        log("Tracks fragment was saved => " + (temp != null));
         if (temp == null)
             tracksFragment = TopTracksFragment.createInstance(true);
         else
             tracksFragment = (TopTracksFragment) temp;
 
-        if(artistPicked && topTracksFragmentContainer != null)
+        tracksFragment.setListener(this);
+
+        temp = getFragmentManager().getFragment(savedInstanceState, PLAYER_FRAGMENT_KEY);
+        log("player fragment was saved => " + (temp != null));
+        if (temp == null)
+            playerFragment = new TrackPlayerFragment();
+        else
+            playerFragment = (TrackPlayerFragment) temp;
+
+        playerFragment.setOnTrackRequestedListener(this);
+
+        if (artistPicked && topTracksFragmentContainer != null)
             topTracksFragmentContainer.setVisibility(View.VISIBLE);
     }
 
@@ -105,9 +143,13 @@ public class SearchSongActivity extends Activity
     {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
-        getFragmentManager().putFragment(outState, artistFragmentKey, artistFragment);
-        if (tracksFragment.isAdded())
-            getFragmentManager().putFragment(outState, tracksFragmentKey, tracksFragment);
+        getFragmentManager().putFragment(outState, ARTIST_FRAGMENT_KEY, artistFragment);
+        if (topTracksFragmentContainer != null || !artistFragment.isAdded())//means that top tracks fragment is somewhere in the backstack
+            getFragmentManager().putFragment(outState, TRACKS_FRAGMENT_KEY, tracksFragment);
+
+        log("player fragment is visible => " + playerFragment.isVisible());
+        if (playerFragment.isVisible())
+            getFragmentManager().putFragment(outState, PLAYER_FRAGMENT_KEY, playerFragment);
     }
 
     private void log(String logMessage)
@@ -145,5 +187,32 @@ public class SearchSongActivity extends Activity
                 .replace(R.id.fragment_container_ssa, fragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void requestNextSong()
+    {
+        tracksFragment.selectNextTrack();
+    }
+
+    @Override
+    public void requestPreviousSong()
+    {
+        tracksFragment.selectPreviousTrack();
+    }
+
+    @Override
+    public void onTrackSelected(Track track)
+    {
+        if (!playerFragment.isVisible())
+        {
+            if (topTracksFragmentContainer == null) //means we are on a phone
+                changeCurrentFragment(playerFragment);
+            else
+                playerFragment.show(getFragmentManager(), null);
+        }
+
+        playerFragment.setCurrentTrack(track);
+
     }
 }

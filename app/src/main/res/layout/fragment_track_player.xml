@@ -1,0 +1,80 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="nanodegree.spotifystreamer.gui_layer.fragments.TrackPlayerFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/top_edge_tpf"
+            style="@style/edge_bar_style"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="@string/top_tracks"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/search_box_font_size"
+            />
+
+        <ImageView
+            android:id="@+id/album_iv_tpf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/top_edge_tpf"
+            android:layout_above="@+id/song_progress_sb_tpf"
+            android:layout_marginTop="@dimen/album_iv_top_margin_top_bottom_tpf"
+            android:layout_marginBottom="@dimen/album_iv_top_margin_top_bottom_tpf"
+
+
+            />
+
+        <SeekBar
+            android:id="@+id/song_progress_sb_tpf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/button_layout_tpf"
+            android:layout_marginBottom="@dimen/song_sb_bottom_margin_tpf"
+            android:layout_marginRight="@dimen/song_sb_side_margin_tpf"
+            android:layout_marginLeft="@dimen/song_sb_side_margin_tpf"
+            />
+
+
+        <RelativeLayout
+            android:id="@+id/button_layout_tpf"
+            style="@style/edge_bar_style"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:id="@+id/previous_song_btn_tpf"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@android:drawable/ic_media_previous"
+                android:layout_toLeftOf="@+id/play_pause_btn_tpf"
+                android:layout_marginRight="@dimen/media_button_gap"
+                />
+
+            <ImageView
+                android:id="@+id/play_pause_btn_tpf"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@android:drawable/ic_media_play"
+                android:layout_centerInParent="true"
+                />
+
+            <ImageView
+                android:id="@+id/next_song_btn_tpf"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@android:drawable/ic_media_next"
+                android:layout_marginLeft="@dimen/media_button_gap"
+                android:layout_toRightOf="@+id/play_pause_btn_tpf"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -16,8 +16,9 @@ public class Track implements Parcelable
     private String name;
     private String album;
     private String imageUrl;
+    private String previewUrl;
 
-    public final Parcelable.Creator<Track> CREATOR = new ClassLoaderCreator<Track>()
+    public final static Parcelable.Creator<Track> CREATOR = new ClassLoaderCreator<Track>()
     {
         @Override
         public Track createFromParcel(Parcel parcel)
@@ -43,11 +44,12 @@ public class Track implements Parcelable
     }
 
     @Builder
-    public Track(String name, String album, String imageUrl)
+    public Track(String name, String album, String imageUrl, String previewUrl)
     {
         this.name = name;
         this.album = album;
         this.imageUrl = imageUrl;
+        this.previewUrl = previewUrl;
     }
 
     private Track(Parcel parcel)
@@ -55,6 +57,7 @@ public class Track implements Parcelable
         name = parcel.readString();
         album = parcel.readString();
         imageUrl = parcel.readString();
+        previewUrl = parcel.readString();
     }
 
     @Override
@@ -69,6 +72,7 @@ public class Track implements Parcelable
         parcel.writeString(name);
         parcel.writeString(album);
         parcel.writeString(imageUrl);
+        parcel.writeString(previewUrl);
     }
 
 }

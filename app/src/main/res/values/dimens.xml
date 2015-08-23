@@ -16,4 +16,8 @@
     <dimen name="no_data_padding_top_bottom">25dp</dimen>
     <dimen name="edge_bar_height">50dp</dimen>
     <dimen name="search_box_font_size">22sp</dimen>
+    <dimen name="media_button_gap">20dp</dimen>
+    <dimen name="song_sb_bottom_margin_tpf">20dp</dimen>
+    <dimen name="song_sb_side_margin_tpf">20dp</dimen>
+    <dimen name="album_iv_top_margin_top_bottom_tpf">25dp</dimen>
 </resources>

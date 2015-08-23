@@ -82,6 +82,7 @@ public class AppTools
                 .album(album)
                 .imageUrl(imageUrl)
                 .name(webTrackObject.name)
+                .previewUrl(webTrackObject.preview_url)
                 .build();
     }
 

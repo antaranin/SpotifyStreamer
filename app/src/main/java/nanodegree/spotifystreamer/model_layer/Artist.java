@@ -16,7 +16,7 @@ public class Artist implements Parcelable
     private String name;
     private String imageUrl;
 
-    public final Parcelable.Creator<Artist> CREATOR = new ClassLoaderCreator<Artist>()
+    public final static Parcelable.Creator<Artist> CREATOR = new ClassLoaderCreator<Artist>()
     {
 
         @Override

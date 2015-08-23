@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import hugo.weaving.DebugLog;
 import icepick.Icepick;
 import icepick.Icicle;
 import lombok.Setter;
@@ -47,8 +48,12 @@ public class TopTracksFragment extends Fragment implements OnTrackResponseListen
     @Icicle
     boolean isSoleFragment;
 
+
     @InjectView(R.id.no_tracks_found_tv)
     TextView noTrackFoundTv;
+
+    @Icicle
+    Track currentTrack;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -70,6 +75,8 @@ public class TopTracksFragment extends Fragment implements OnTrackResponseListen
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null)
+            restoreInstance(savedInstanceState);
     }
 
     @Override
@@ -77,8 +84,6 @@ public class TopTracksFragment extends Fragment implements OnTrackResponseListen
     {
         View root = inflater.inflate(R.layout.fragment_top_tracks, container, false);
         initialize(root);
-        if (savedInstanceState != null)
-            restoreInstance(savedInstanceState);
         return root;
     }
 
@@ -130,10 +135,16 @@ public class TopTracksFragment extends Fragment implements OnTrackResponseListen
         AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(adapter);
         animationAdapter.setAbsListView(trackListView);
         trackListView.setAdapter(animationAdapter);
-        trackListView.setOnItemClickListener((adapterView, view, i, l) -> {
-            if (listener != null)
-                listener.onTrackSelected((Track) adapter.getItem(i));
-        });
+        trackListView.setOnItemClickListener((adapterView, view, i, l) -> recoverTrack(i));
+    }
+
+    private void recoverTrack(int trackNum)
+    {
+        if (listener != null)
+        {
+            currentTrack = ((Track)adapter.getItem(trackNum));
+            listener.onTrackSelected(currentTrack);
+        }
     }
 
     private void initialize(View container)
@@ -166,6 +177,7 @@ public class TopTracksFragment extends Fragment implements OnTrackResponseListen
             outState.putParcelableArrayList(TRACK_KEY, adapter.getData());
     }
 
+    @DebugLog
     private void restoreInstance(Bundle savedInstance)
     {
         Icepick.restoreInstanceState(this, savedInstance);
@@ -174,7 +186,7 @@ public class TopTracksFragment extends Fragment implements OnTrackResponseListen
         {
             adapter = new TrackDisplayingAdapter(getActivity(), data, R.layout.track_list_row,
                     R.id.track_name_tv, R.id.track_album_tv, R.id.track_picture_iv);
-            resetAdapter();
+//            resetAdapter();
         }
     }
 
@@ -235,6 +247,30 @@ public class TopTracksFragment extends Fragment implements OnTrackResponseListen
     private void log(String logMessage)
     {
         Log.d("TopTracksFragment", logMessage);
+    }
+
+    public void selectNextTrack()
+    {
+        int trackCount = adapter.getCount();
+        if(listener == null || trackCount <= 0)
+            return;
+
+        if(currentTrack == null)
+            recoverTrack(0);
+        else
+            recoverTrack((adapter.getData().indexOf(currentTrack) + 1) % trackCount);
+    }
+
+    public void selectPreviousTrack()
+    {
+        int trackCount = adapter.getCount();
+        if(listener == null || trackCount <= 0)
+            return;
+
+        if(currentTrack == null)
+            recoverTrack(adapter.getCount() - 1);
+        else
+            recoverTrack((adapter.getData().indexOf(currentTrack) + trackCount - 1) % trackCount); //because of java stupid modulo
     }
 
     public interface OnTrackFragmentInteractionListener
