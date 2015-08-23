@@ -20,4 +20,8 @@
     <dimen name="song_sb_bottom_margin_tpf">20dp</dimen>
     <dimen name="song_sb_side_margin_tpf">20dp</dimen>
     <dimen name="album_iv_top_margin_top_bottom_tpf">25dp</dimen>
+    <dimen name="duration_text_bottom_margin">10dp</dimen>
+    <dimen name="duration_text_font_size">18sp</dimen>
+    <dimen name="player_height">500dp</dimen>
+    <dimen name="player_width">300dp</dimen>
 </resources>

@@ -97,14 +97,15 @@ public class SearchSongActivity extends Activity
                     .commit();
 
             tracksFragment = TopTracksFragment.createInstance(true);
+            playerFragment = TrackPlayerFragment.createInstance(true);
         }
         else
         {
+            playerFragment = new TrackPlayerFragment();
             tracksFragment = (TopTracksFragment) getFragmentManager().findFragmentById(R.id.top_tracks_fragment_ssa);
         }
         artistFragment.setListener(this);
         artistFragment.setRetainInstance(true);
-        playerFragment = new TrackPlayerFragment();
         playerFragment.setOnTrackRequestedListener(this);
         tracksFragment.setListener(this);
         tracksFragment.setRetainInstance(true);
@@ -128,7 +129,12 @@ public class SearchSongActivity extends Activity
         temp = getFragmentManager().getFragment(savedInstanceState, PLAYER_FRAGMENT_KEY);
         log("player fragment was saved => " + (temp != null));
         if (temp == null)
-            playerFragment = new TrackPlayerFragment();
+        {
+            if(topTracksFragmentContainer == null)
+                playerFragment = TrackPlayerFragment.createInstance(true);
+            else
+                playerFragment = new TrackPlayerFragment();
+        }
         else
             playerFragment = (TrackPlayerFragment) temp;
 
@@ -178,6 +184,7 @@ public class SearchSongActivity extends Activity
             artistPicked = true;
         }
         tracksFragment.setArtist(artist);
+        playerFragment.setArtist(artist);
     }
 
     private void changeCurrentFragment(Fragment fragment)

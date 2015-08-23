@@ -66,4 +66,13 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
+    <style name="time_tv_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/duration_text_font_size</item>
+        <item name="android:layout_marginBottom">@dimen/duration_text_bottom_margin</item>
+        <item name="android:layout_above">@+id/button_layout_tpf</item>
+    </style>
+
 </resources>

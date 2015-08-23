@@ -5,6 +5,7 @@
              tools:context="nanodegree.spotifystreamer.gui_layer.fragments.TrackPlayerFragment">
 
     <RelativeLayout
+        android:id="@+id/background_layout_tpf"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -30,16 +31,33 @@
 
             />
 
+        <TextView
+            android:id="@+id/current_time_tv_tpf"
+            style="@style/time_tv_style"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/song_sb_side_margin_tpf"
+            android:text="0:00"
+            />
+
         <SeekBar
             android:id="@+id/song_progress_sb_tpf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/button_layout_tpf"
             android:layout_marginBottom="@dimen/song_sb_bottom_margin_tpf"
             android:layout_marginRight="@dimen/song_sb_side_margin_tpf"
             android:layout_marginLeft="@dimen/song_sb_side_margin_tpf"
+            android:layout_above="@+id/button_layout_tpf"
+            android:layout_toEndOf="@+id/current_time_tv_tpf"
+            android:layout_toStartOf="@+id/total_time_tv_tpf"
             />
 
+        <TextView
+            android:id="@+id/total_time_tv_tpf"
+            style="@style/time_tv_style"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/song_sb_side_margin_tpf"
+            android:text="0:30"
+            />
 
         <RelativeLayout
             android:id="@+id/button_layout_tpf"
