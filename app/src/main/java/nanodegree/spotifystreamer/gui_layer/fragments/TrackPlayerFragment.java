@@ -41,6 +41,7 @@ import nanodegree.spotifystreamer.model_layer.Track;
 public class TrackPlayerFragment extends DialogFragment
 {
     private final static int SECOND_LENGTH = 1000;
+    private static final String DURATION_KEY = "durationKey";
     @Icicle
     Track currentTrack;
     @Icicle
@@ -66,7 +67,7 @@ public class TrackPlayerFragment extends DialogFragment
     @InjectView(R.id.album_iv_tpf)
     ImageView albumCoverView;
     @InjectView(R.id.current_time_tv_tpf)
-    TextView durationTv;
+    TextView currentTimeTv;
     @InjectView(R.id.total_time_tv_tpf)
     TextView totalTimeTv;
     private MediaPlayer player;
@@ -120,6 +121,10 @@ public class TrackPlayerFragment extends DialogFragment
     {
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
+        //it is equivalent to progress which cannot be taken now without creating a global variable,
+        // as player is null at this point
+        outState.putInt(DURATION_KEY, songProgressBar.getMax());
+
     }
 
     private void restoreInstance(Bundle savedInstanceState)
@@ -138,6 +143,12 @@ public class TrackPlayerFragment extends DialogFragment
         }
         if (isPlaying)
             playPauseBtn.setImageResource(android.R.drawable.ic_media_pause);
+
+        int duration = savedInstanceState.getInt(DURATION_KEY);
+        totalTimeTv.setText(formatIntoTimeString(duration));
+        currentTimeTv.setText(formatIntoTimeString(currentTime));
+        songProgressBar.setMax(duration);
+        songProgressBar.setProgress(currentTime);
 
     }
 
@@ -161,12 +172,14 @@ public class TrackPlayerFragment extends DialogFragment
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b)
             {
+                log("Progress changed current val => " + i);
+                log("Max val => " + seekBar.getMax());
                 if (b)
                 {
                     log("Setting time in user made change => " + i);
                     currentTime = i;
                     player.seekTo(i);
-                    durationTv.setText(formatIntoTimeString(currentTime));
+                    currentTimeTv.setText(formatIntoTimeString(currentTime));
                 }
             }
         });
@@ -263,9 +276,9 @@ public class TrackPlayerFragment extends DialogFragment
     private void onTrackReadyToPlay()
     {
         log("current time in track ready to play => " + currentTime);
+        prepareSeekBar();
         isLoaded = true;
         player.seekTo(currentTime);
-        prepareSeekBar();
         if (isPlaying)
             player.start();
     }
@@ -374,10 +387,6 @@ public class TrackPlayerFragment extends DialogFragment
 
     }
 
-    private void setCurrentDuration()
-    {
-    }
-
     private String formatIntoTimeString(int miliseconds)
     {
         int seconds = miliseconds / SECOND_LENGTH;
@@ -414,9 +423,9 @@ public class TrackPlayerFragment extends DialogFragment
             if (!player.isPlaying())
                 return;
 
-            //            log("Current time before setting in runnable => " + currentTime);
+            log("Current time before setting in runnable => " + currentTime);
             currentTime = player.getCurrentPosition();
-            durationTv.setText(formatIntoTimeString(currentTime));
+            currentTimeTv.setText(formatIntoTimeString(currentTime));
             songProgressBar.setProgress(currentTime);
             //            log("Current time after setting in runnable => " + currentTime);
         }
